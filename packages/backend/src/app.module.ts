@@ -6,6 +6,7 @@ import { ConfigModule } from "@nestjs/config";
 import { GraphQLModule } from "@nestjs/graphql";
 import { MongooseModule } from "@nestjs/mongoose";
 import {UserModule} from "./user/user.module";
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -15,7 +16,8 @@ import {UserModule} from "./user/user.module";
       autoSchemaFile: true,
       playground: true,
     }),
-    UserModule
+    UserModule,
+    AuthModule
   ],
   providers: [AppService, AppResolver],
 })
