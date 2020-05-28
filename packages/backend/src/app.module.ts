@@ -5,6 +5,7 @@ import { AppService } from "./app.service";
 import { ConfigModule } from "@nestjs/config";
 import { GraphQLModule } from "@nestjs/graphql";
 import { MongooseModule } from "@nestjs/mongoose";
+import {UserModule} from "./user/user.module";
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { MongooseModule } from "@nestjs/mongoose";
       autoSchemaFile: true,
       playground: true,
     }),
+    UserModule
   ],
   providers: [AppService, AppResolver],
 })
