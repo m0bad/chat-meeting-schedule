@@ -1,0 +1,26 @@
+{
+  "name": "chat-meeting-schedule",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/m0bad/chat-meeting-schedule",
+  "author": "m0bad",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:backend": "yarn --cwd packages/backend run start:dev ",
+    "dev:frontend": "yarn --cwd packages/frontend run dev",
+    "dev": "concurrently \"yarn dev:backend\" \"yarn dev:frontend\" "
+  },
+  "private": true,
+  "prettier": {
+    "singleQuote": false,
+    "trailingComma": "all",
+    "semi": true,
+    "bracketSpacing": true
+  },
+  "devDependencies": {
+    "concurrently": "^5.2.0"
+  }
+}
