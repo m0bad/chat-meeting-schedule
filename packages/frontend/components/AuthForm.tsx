@@ -25,7 +25,12 @@ const AuthForm = ({ name, loading, error, type, buttonText, onSubmit }) => {
           name="email"
           rules={[{ required: true, message: "Email is required." }]}
         >
-          <Input type="email" placeholder="Email" prefix={<UserOutlined />} />
+          <Input
+            type="email"
+            placeholder="Email"
+            prefix={<UserOutlined />}
+            disabled={loading}
+          />
         </Form.Item>
         <Form.Item
           name="password"
@@ -35,6 +40,7 @@ const AuthForm = ({ name, loading, error, type, buttonText, onSubmit }) => {
             type="password"
             placeholder="Password"
             prefix={<UnlockOutlined />}
+            disabled={loading}
           />
         </Form.Item>
 
