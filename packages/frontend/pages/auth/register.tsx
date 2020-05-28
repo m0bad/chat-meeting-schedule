@@ -1,12 +1,12 @@
-import React, {useCallback} from "react";
-import {Button, Col, Layout, Row} from "antd";
+import React, { useCallback } from "react";
+import { Button, Col, Layout, Row } from "antd";
 import AuthForm from "../../components/AuthForm";
-import {withApollo} from "../../lib/apollo";
+import { withApollo } from "../../lib/apollo";
 import Link from "next/link";
 import gql from "graphql-tag";
-import {RegisterData, RegisterVars} from "../../types/auth.type";
-import {useMutation} from "@apollo/react-hooks";
-import {useRouter} from "next/router";
+import { RegisterData, RegisterVars } from "../../types/auth.type";
+import { useMutation } from "@apollo/react-hooks";
+import { useRouter } from "next/router";
 
 const { Content } = Layout;
 
@@ -21,7 +21,6 @@ const REGISTER_MUTATION = gql`
 `;
 
 const RegisterPage = () => {
-  const router = useRouter();
   const [register, { loading, error, data }] = useMutation<
     RegisterData,
     RegisterVars

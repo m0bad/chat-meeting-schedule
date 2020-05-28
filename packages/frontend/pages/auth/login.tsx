@@ -21,7 +21,6 @@ const LOGIN_MUTATION = gql`
 `;
 
 const LoginPage = () => {
-  const router = useRouter();
   const [login, { loading, error, data }] = useMutation<LoginData, LoginVars>(
     LOGIN_MUTATION,
   );
