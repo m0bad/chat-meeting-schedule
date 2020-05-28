@@ -4,7 +4,7 @@ import { UnlockOutlined, UserOutlined } from "@ant-design/icons";
 
 const { Title } = Typography;
 
-const AuthForm = ({ name, loading, error, type, buttonText }) => {
+const AuthForm = ({ name, loading, error, type, buttonText, onSubmit }) => {
   return (
     <Card bordered={false}>
       {error &&
@@ -14,7 +14,11 @@ const AuthForm = ({ name, loading, error, type, buttonText }) => {
             <br />
           </div>
         ))}
-      <Form name={name} initialValues={{ email: "", password: "" }}>
+      <Form
+        name={name}
+        initialValues={{ email: "", password: "" }}
+        onFinish={onSubmit}
+      >
         <Title level={4}>{type}</Title>
 
         <Form.Item
