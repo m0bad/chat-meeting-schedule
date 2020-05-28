@@ -10,15 +10,14 @@
       "import",
       {
         "libraryName": "antd",
-        "libraryDirectory": "es",
-        "style": "index.css"
+        "libraryDirectory": "lib"
       }
     ],
     [
       "import",
       {
         "libraryName": "@ant-design/icons",
-        "libraryDirectory": "es/icons",
+        "libraryDirectory": "lib/icons",
         "camel2DashComponentName": false
       },
       "@ant-design/icons"
