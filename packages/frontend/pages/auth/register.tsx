@@ -21,6 +21,7 @@ const REGISTER_MUTATION = gql`
 `;
 
 const RegisterPage = () => {
+  const router = useRouter();
   const [register, { loading, error, data }] = useMutation<
     RegisterData,
     RegisterVars
@@ -29,7 +30,7 @@ const RegisterPage = () => {
   if (data && data.register) {
     localStorage.setItem("token", data.register.token);
     console.log("Registered");
-    // router.replace("/");
+    router.replace("/chat");
   }
 
   const onRegister = useCallback(

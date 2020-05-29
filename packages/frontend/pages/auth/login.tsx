@@ -1,12 +1,12 @@
-import React, {useCallback} from "react";
-import {Button, Col, Layout, Row} from "antd";
+import React, { useCallback } from "react";
+import { Button, Col, Layout, Row } from "antd";
 import AuthForm from "../../components/AuthForm";
-import {withApollo} from "../../lib/apollo";
+import { withApollo } from "../../lib/apollo";
 import Link from "next/link";
 import gql from "graphql-tag";
-import {useRouter} from "next/router";
-import {useMutation} from "@apollo/react-hooks";
-import {LoginData, LoginVars} from "../../types/auth.type";
+import { useRouter } from "next/router";
+import { useMutation } from "@apollo/react-hooks";
+import { LoginData, LoginVars } from "../../types/auth.type";
 
 const { Content } = Layout;
 
@@ -21,6 +21,7 @@ const LOGIN_MUTATION = gql`
 `;
 
 const LoginPage = () => {
+  const router = useRouter();
   const [login, { loading, error, data }] = useMutation<LoginData, LoginVars>(
     LOGIN_MUTATION,
   );
@@ -28,7 +29,7 @@ const LoginPage = () => {
   if (data && data.login) {
     localStorage.setItem("token", data.login.token);
     console.log("Logged In");
-    // router.replace("/");
+    router.replace("/chat");
   }
 
   const onLogin = useCallback(
