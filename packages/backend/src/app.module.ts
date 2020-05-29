@@ -5,9 +5,9 @@ import { AppService } from "./app.service";
 import { ConfigModule } from "@nestjs/config";
 import { GraphQLModule } from "@nestjs/graphql";
 import { MongooseModule } from "@nestjs/mongoose";
-import {UserModule} from "./user/user.module";
-import { AuthModule } from './auth/auth.module';
-import { ChatModule } from './chat/chat.module';
+import { UserModule } from "./user/user.module";
+import { AuthModule } from "./auth/auth.module";
+import { ChatModule } from "./chat/chat.module";
 import { MessageModule } from './message/message.module';
 
 @Module({
@@ -21,7 +21,7 @@ import { MessageModule } from './message/message.module';
     UserModule,
     AuthModule,
     ChatModule,
-    MessageModule
+    MessageModule,
   ],
   providers: [AppService, AppResolver],
 })

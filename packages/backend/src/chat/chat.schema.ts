@@ -1,20 +1,28 @@
 import * as mongoose from "mongoose";
 import { User } from "../user/user.schema";
+import { Message } from "../message/message.schema";
 
 export interface Chat extends mongoose.Document {
-  members: User[];
+  users: User[];
+  messages: Message[];
 }
 
 export const ChatSchema = new mongoose.Schema<Chat>(
-         {
-           members: [
-             {
-               type: mongoose.Schema.Types.ObjectId,
-               ref: "User",
-             },
-           ],
-         },
-         {
-           timestamps: true,
-         },
-       );
+  {
+    users: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    messages: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Message",
+      },
+    ],
+  },
+  {
+    timestamps: true,
+  },
+);
