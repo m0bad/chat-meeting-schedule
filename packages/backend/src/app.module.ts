@@ -7,6 +7,8 @@ import { GraphQLModule } from "@nestjs/graphql";
 import { MongooseModule } from "@nestjs/mongoose";
 import {UserModule} from "./user/user.module";
 import { AuthModule } from './auth/auth.module';
+import { ChatModule } from './chat/chat.module';
+import { MessageModule } from './message/message.module';
 
 @Module({
   imports: [
@@ -17,7 +19,9 @@ import { AuthModule } from './auth/auth.module';
       playground: true,
     }),
     UserModule,
-    AuthModule
+    AuthModule,
+    ChatModule,
+    MessageModule
   ],
   providers: [AppService, AppResolver],
 })
