@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
-import { Layout, Menu, Typography, Avatar, Divider } from "antd";
-import { UserOutlined, UsergroupAddOutlined } from "@ant-design/icons";
+import { Avatar, Input, Layout, Menu } from "antd";
+import { UsergroupAddOutlined, UserOutlined } from "@ant-design/icons";
 import { withApollo } from "../lib/apollo";
+import { Message } from "../components/Message";
+import { MessageInput } from "../components/MessageInput";
 
-const { Title } = Typography;
-const { Sider } = Layout;
+const { Sider, Header, Content, Footer } = Layout;
 const { SubMenu } = Menu;
 
 const USERS_QUERY = gql`
@@ -21,6 +22,7 @@ const USERS_QUERY = gql`
 
 const ChatPage = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   const { loading, error, data } = useQuery(USERS_QUERY);
 
@@ -45,6 +47,7 @@ const ChatPage = () => {
                       icon={<UserOutlined />}
                     />
                   }
+                  onClick={() => setSelectedUser(user)}
                 >
                   {user.username}
                 </Menu.Item>
@@ -57,6 +60,39 @@ const ChatPage = () => {
           ></SubMenu>
         </Menu>
       </Sider>
+      <Layout>
+        <Header
+          style={{ paddingLeft: 10, textAlign: "center", background: "white" }}
+        >
+          <Avatar
+            style={{ backgroundColor: "#87d068", margin: "5px" }}
+            icon={<UserOutlined />}
+          />
+          {selectedUser?.username || "Chat Demo"}
+        </Header>
+        <Content
+          style={{
+            background: "#e7e7e7",
+            padding: 24,
+            minHeight: 240,
+          }}
+        >
+          <ul
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              margin: 0,
+              padding: 0,
+            }}
+          >
+            <Message isMe={false} body="Hi" />
+            <Message isMe={true} body="How are you" />
+          </ul>
+        </Content>
+        <Footer style={{ background: "#EEF7FE", padding: 4 }}>
+          <MessageInput />
+        </Footer>
+      </Layout>
     </Layout>
   );
 };
