@@ -14,6 +14,7 @@ export class AuthResolver {
   @Mutation(returns => AuthResultDto, { nullable: true })
   async register(
     @Args("email") email: string,
+    @Args("username") username: string,
     @Args("password") password: string,
   ): Promise<AuthResultDto | null> {
     const userExists = await this.userService.findOne(email);
@@ -21,9 +22,18 @@ export class AuthResolver {
       throw new HttpException("Email Already Exists", HttpStatus.CONFLICT);
     }
 
-    const newUser = await this.authService.register({ email, password });
+    const newUser = await this.authService.register({
+      email,
+      password,
+      username,
+    });
     const token = await this.authService.login(newUser);
-    return { _id: newUser._id, email: newUser.email, token };
+    return {
+      _id: newUser._id,
+      email: newUser.email,
+      username: newUser.username,
+      token,
+    };
   }
 
   @Mutation(returns => AuthResultDto, { nullable: true })

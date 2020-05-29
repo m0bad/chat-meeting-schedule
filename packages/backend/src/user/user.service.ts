@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { User } from "./user.schema";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import { AuthArgsDto } from "../auth/dto/auth-args.dto";
+import { RegisterArgsDto } from "../auth/dto/auth-args.dto";
 import { UserDto } from "./dto/user.dto";
 
 @Injectable()
@@ -20,7 +20,7 @@ export class UserService {
     return this.userModel.find({});
   }
 
-  async create(data: AuthArgsDto) {
+  async create(data: RegisterArgsDto) {
     return this.userModel.create(data);
   }
 }
