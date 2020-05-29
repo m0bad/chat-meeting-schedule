@@ -1,4 +1,37 @@
-import { Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
+import { ChatService } from "./chat.service";
+import { MessageDto } from "../message/dto/message.dto";
+import { ChatDto } from "./dto/chat.dto";
+import { Message } from "../message/message.schema";
+import { Chat } from "./chat.schema";
 
-@Resolver('Chat')
-export class ChatResolver {}
+@Resolver("Chat")
+export class ChatResolver {
+  constructor(private readonly chatService: ChatService) {}
+
+  @Query(returns => [MessageDto])
+  async messages(@Args("chat") chat: string): Promise<Message[]> {
+    return this.chatService.getMessagesForChat(chat);
+  }
+
+  @Mutation(returns => String)
+  async startChat(
+    @Args("users", { type: () => [String] }) users: string[],
+  ): Promise<string> {
+    return this.chatService.createChat(users);
+  }
+
+  @Mutation(returns => MessageDto)
+  async sendMessage(
+    @Args("body") body: string,
+    @Args("sender") sender: string,
+    @Args("chat") chat: string,
+  ): Promise<Message> {
+    const newMessage = await this.chatService.sendMessage({
+      body,
+      sender,
+      chat,
+    });
+    return newMessage;
+  }
+}
