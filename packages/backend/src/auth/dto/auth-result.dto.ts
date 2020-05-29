@@ -9,5 +9,8 @@ export class AuthResultDto {
     email: string;
 
     @Field()
+    username: string;
+
+    @Field()
     token: string;
 }
