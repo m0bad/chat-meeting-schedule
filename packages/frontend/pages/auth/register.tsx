@@ -11,10 +11,11 @@ import { useRouter } from "next/router";
 const { Content } = Layout;
 
 const REGISTER_MUTATION = gql`
-  mutation REGISTER($email: String!, $password: String!) {
-    register(email: $email, password: $password) {
+  mutation REGISTER($email: String!, $username: String!, $password: String!) {
+    register(email: $email, username: $username, password: $password) {
       _id
       email
+      username
       token
     }
   }

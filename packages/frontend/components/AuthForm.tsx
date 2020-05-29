@@ -1,6 +1,6 @@
 import React from "react";
 import { Alert, Button, Card, Form, Input, Typography } from "antd";
-import { UnlockOutlined, UserOutlined } from "@ant-design/icons";
+import { UnlockOutlined, UserOutlined, MailOutlined } from "@ant-design/icons";
 
 const { Title } = Typography;
 
@@ -16,7 +16,7 @@ const AuthForm = ({ name, loading, error, type, buttonText, onSubmit }) => {
         ))}
       <Form
         name={name}
-        initialValues={{ email: "", password: "" }}
+        initialValues={{ email: "", username: "", password: "" }}
         onFinish={onSubmit}
       >
         <Title level={4}>{type}</Title>
@@ -28,10 +28,23 @@ const AuthForm = ({ name, loading, error, type, buttonText, onSubmit }) => {
           <Input
             type="email"
             placeholder="Email"
-            prefix={<UserOutlined />}
+            prefix={<MailOutlined />}
             disabled={loading}
           />
         </Form.Item>
+        {type === "Register" && (
+          <Form.Item
+            name="username"
+            rules={[{ required: true, message: "Username is required." }]}
+          >
+            <Input
+              type="username"
+              placeholder="Username"
+              prefix={<UserOutlined />}
+              disabled={loading}
+            />
+          </Form.Item>
+        )}
         <Form.Item
           name="password"
           rules={[{ required: true, message: "Password is required." }]}
