@@ -16,8 +16,9 @@ export class UserService {
     return this.userModel.findOne({ email });
   }
 
-  async findAll(): Promise<UserDto[]> {
-    return this.userModel.find({});
+  async findAll(user: string): Promise<UserDto[]> {
+    const users = await this.userModel.find({});
+    return users.filter(u => String(u._id) !== user);
   }
 
   async create(data: RegisterArgsDto) {
