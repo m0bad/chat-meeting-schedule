@@ -1,9 +1,12 @@
-import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
+import { Args, Mutation, Query, Resolver, Subscription } from "@nestjs/graphql";
 import { ChatService } from "./chat.service";
 import { MessageDto } from "../message/dto/message.dto";
 import { Message } from "../message/message.schema";
 import { Chat } from "./chat.schema";
 import { UserDto } from "../user/dto/user.dto";
+import { PubSub } from "apollo-server-express";
+
+const pubSub = new PubSub();
 
 @Resolver("Chat")
 export class ChatResolver {
@@ -32,6 +35,15 @@ export class ChatResolver {
       sender,
       chat,
     });
+    await pubSub.publish("messageAdded", { messageAdded: newMessage });
     return newMessage;
+  }
+
+  @Subscription(returns => MessageDto, {
+    name: "messageAdded",
+    filter: (payload, variables) => payload.chat == variables.chat,
+  })
+  messageAdded() {
+    return pubSub.asyncIterator("messageAdded");
   }
 }
