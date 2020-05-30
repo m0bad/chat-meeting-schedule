@@ -18,7 +18,7 @@ const ChatPage = () => {
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
 
-  const { data } = useQuery(USERS_QUERY, {
+  const { data, loading } = useQuery(USERS_QUERY, {
     skip: !loggedInUser,
     variables: { user: loggedInUser?._id },
   });
@@ -49,6 +49,7 @@ const ChatPage = () => {
         <Menu mode="inline">
           <UsersList
             data={data?.users}
+            loading={loading}
             onClick={setSelectedUser}
             key="users"
             title="Users"
