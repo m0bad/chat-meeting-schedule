@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import { Layout, Menu } from "antd";
@@ -6,8 +6,8 @@ import { UsergroupAddOutlined } from "@ant-design/icons";
 import { withApollo } from "../lib/apollo";
 import UsersList from "../components/UsersList";
 import { ChatWindow } from "../components/ChatWindow";
+import { useRouter } from "next/router";
 
-const currentUser = "5ed1d30203354c2dafa3bccc";
 const { Sider } = Layout;
 const { SubMenu } = Menu;
 
@@ -21,26 +21,22 @@ const USERS_QUERY = gql`
   }
 `;
 
-// const FRIENDS_QUERY = gql`
-//   query friends($user: String!) {
-//     friends(user: $user) {
-//       _id
-//       email
-//       username
-//     }
-//   }
-// `;
-
 const ChatPage = () => {
+  const router = useRouter();
   const [collapsed, setCollapsed] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
 
-  // const { data } = useQuery(FRIENDS_QUERY, {
-  //   variables: { user: currentUser },
-  // });
   const { data } = useQuery(USERS_QUERY, {
-    variables: { user: currentUser },
+    skip: !loggedInUser,
+    variables: { user: loggedInUser },
   });
+
+  useEffect(() => {
+    const loggedInUser = JSON.parse(localStorage.getItem("user"));
+    if (loggedInUser) setLoggedInUser(loggedInUser._id);
+    else router.replace("/auth/login");
+  }, []);
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -66,7 +62,7 @@ const ChatPage = () => {
         </Menu>
       </Sider>
       {selectedUser && (
-        <ChatWindow selectedUser={selectedUser} currentUser={currentUser} />
+        <ChatWindow selectedUser={selectedUser} loggedInUser={loggedInUser} />
       )}
     </Layout>
   );
