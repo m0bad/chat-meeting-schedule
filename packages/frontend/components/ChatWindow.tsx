@@ -1,7 +1,7 @@
 import { Avatar, Layout } from "antd";
 import { Message } from "./Message";
 import { MessageInput } from "./MessageInput";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { UserOutlined } from "@ant-design/icons";
 import gql from "graphql-tag";
 import { useMutation, useQuery } from "@apollo/react-hooks";
@@ -9,13 +9,19 @@ import { useMutation, useQuery } from "@apollo/react-hooks";
 const { Header, Content, Footer } = Layout;
 
 const MESSAGES_QUERY = gql`
-  query messages($users: [String!]!) {
-    messages(users: $users) {
+  query messages($chat: String!) {
+    messages(chat: $chat) {
       _id
       body
       sender
       createdAt
     }
+  }
+`;
+
+const CHAT_ID_QUERY = gql`
+  query chatForUsers($users: [String!]!) {
+    chatForUsers(users: $users)
   }
 `;
 
@@ -30,26 +36,58 @@ const SEND_MESSAGE_MUTATION = gql`
   }
 `;
 
-export const ChatWindow = ({ selectedUser, currentUser }) => {
-  const { data } = useQuery(MESSAGES_QUERY, {
-    variables: {
-      users: [selectedUser._id, currentUser],
-    },
+const MESSAGES_SUBSCRIPTION = gql`
+  subscription newMessage($chat: String!) {
+    newMessage(chat: $chat) {
+      _id
+      body
+      sender
+      chat
+      createdAt
+    }
+  }
+`;
+
+export const ChatWindow = ({ selectedUser, loggedInUser }) => {
+  const { data: chatID } = useQuery(CHAT_ID_QUERY, {
+    variables: { users: [selectedUser._id, loggedInUser] },
+  });
+
+  const { subscribeToMore, data } = useQuery(MESSAGES_QUERY, {
+    skip: !chatID,
+    variables: { chat: chatID?.chatForUsers },
   });
 
   const [sendMessage] = useMutation(SEND_MESSAGE_MUTATION);
 
-  const handleSubmit = useCallback(body => {
-    const messageData = {
-      body,
-      sender: currentUser,
-      chat: "5ed1d36303354c2dafa3bccf",
-    };
-    data?.messages.push(messageData);
-    sendMessage({
-      variables: messageData,
-    });
-  }, []);
+  useEffect(() => {
+    if (subscribeToMore && chatID) {
+      const subscription = subscribeToMore({
+        document: MESSAGES_SUBSCRIPTION,
+        variables: { chat: chatID.chatForUsers },
+        updateQuery: (prev, { subscriptionData }) => {
+          if (!subscriptionData.data) return prev;
+          const newMessage = subscriptionData.data.newMessage;
+          return { ...prev, messages: [...prev.messages, newMessage] };
+        },
+      });
+      return subscription;
+    }
+  }, [subscribeToMore, chatID]);
+
+  const handleSubmit = useCallback(
+    body => {
+      const messageData = {
+        body,
+        sender: loggedInUser,
+        chat: chatID?.chatForUsers,
+      };
+      sendMessage({
+        variables: messageData,
+      });
+    },
+    [chatID],
+  );
 
   return (
     <Layout style={{ maxHeight: "100vh" }}>
@@ -82,9 +120,9 @@ export const ChatWindow = ({ selectedUser, currentUser }) => {
           {data &&
             data?.messages.map(message => (
               <Message
-                isMe={message.sender === currentUser}
+                isMe={message.sender === loggedInUser}
                 body={message.body}
-                id={message._id}
+                key={message._id}
               />
             ))}
         </ul>

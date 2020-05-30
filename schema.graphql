@@ -1,9 +1,50 @@
 # This file was generated based on ".graphqlconfig". Do not edit manually.
 
 schema {
-  query: Query
+    query: Query
+    mutation: Mutation
+    subscription: Subscription
+}
+
+type AuthResultDto {
+    _id: String!
+    email: String!
+    token: String!
+    username: String!
+}
+
+type MessageDto {
+    _id: String!
+    body: String!
+    chat: String!
+    createdAt: DateTime!
+    sender: String!
+}
+
+type Mutation {
+    login(email: String!, password: String!): AuthResultDto
+    register(email: String!, password: String!, username: String!): AuthResultDto
+    sendMessage(body: String!, chat: String!, sender: String!): MessageDto!
 }
 
 type Query {
-  hello: String!
+    chatForUsers(users: [String!]!): String!
+    friends(user: String!): [UserDto!]!
+    hello: String!
+    messages(chat: String!): [MessageDto!]!
+    users(user: String!): [UserDto!]!
 }
+
+type Subscription {
+    newMessage(chat: String!): MessageDto!
+}
+
+type UserDto {
+    _id: String!
+    email: String!
+    username: String!
+}
+
+
+"A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format."
+scalar DateTime

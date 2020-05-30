@@ -14,17 +14,19 @@
     "apollo-cache-inmemory": "1.6.5",
     "apollo-client": "2.6.8",
     "apollo-link-http": "1.5.16",
+    "apollo-link-ws": "^1.0.20",
     "graphql": "^15.0.0",
     "graphql-tag": "2.10.3",
     "next": "latest",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "subscriptions-transport-ws": "^0.9.16"
   },
   "license": "ISC",
   "devDependencies": {
     "@types/react": "^16.9.35",
     "babel-plugin-graphql-tag": "^2.5.0",
-    "typescript": "^3.9.3",
-    "babel-plugin-import": "^1.13.0"
+    "babel-plugin-import": "^1.13.0",
+    "typescript": "^3.9.3"
   }
 }
