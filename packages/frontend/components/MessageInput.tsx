@@ -8,10 +8,9 @@ export const MessageInput = ({ onSubmit }) => {
   const [value, setValue] = useState("");
 
   const handleSubmit = useCallback(
-    e => {
-      e.preventDefault();
-      onSubmit(e.target.value || value);
+    val => {
       setValue("");
+      onSubmit(val);
     },
     [onSubmit],
   );
@@ -23,15 +22,15 @@ export const MessageInput = ({ onSubmit }) => {
       <TextArea
         rows={2}
         className="text-area"
-        onPressEnter={handleSubmit}
+        onPressEnter={() => handleSubmit(value)}
         value={value}
         onChange={handleChange}
       />
-      {/*<span className="suffix">*/}
-      {/*  <span className="send" onClick={handleSubmit}>*/}
-      {/*    <SendOutlined style={{ color: "green", fontSize: "22px" }} />*/}
-      {/*  </span>*/}
-      {/*</span>*/}
+      <span className="suffix">
+        <span className="send" onClick={() => handleSubmit(value)}>
+          <SendOutlined style={{ color: "green", fontSize: "22px" }} />
+        </span>
+      </span>
     </div>
   );
 };

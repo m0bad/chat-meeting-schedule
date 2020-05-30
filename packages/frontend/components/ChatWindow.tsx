@@ -45,14 +45,14 @@ export const ChatWindow = ({ selectedUser, currentUser }) => {
       sender: currentUser,
       chat: "5ed1d36303354c2dafa3bccf",
     };
-    data.messages.push(messageData);
+    data?.messages.push(messageData);
     sendMessage({
       variables: messageData,
     });
   }, []);
 
   return (
-    <Layout>
+    <Layout style={{ maxHeight: "100vh" }}>
       <Header
         style={{ paddingLeft: 10, textAlign: "center", background: "white" }}
       >
@@ -67,6 +67,8 @@ export const ChatWindow = ({ selectedUser, currentUser }) => {
           background: "#e7e7e7",
           padding: 24,
           minHeight: 240,
+          flex: 1,
+          overflowY: "scroll",
         }}
       >
         <ul
