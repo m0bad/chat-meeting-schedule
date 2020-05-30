@@ -56,7 +56,7 @@ export const ChatWindow = ({ selectedUser, loggedInUser }) => {
       <Header
         style={{ paddingLeft: 10, textAlign: "center", background: "white" }}
       >
-        <ChatHeader selectedUser={selectedUser} loggedInUser={loggedInUser} />
+        <ChatHeader selectedUser={selectedUser} />
       </Header>
       <Content
         style={{

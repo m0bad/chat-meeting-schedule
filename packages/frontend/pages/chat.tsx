@@ -59,7 +59,7 @@ const ChatPage = () => {
             title="Approved Meetings"
           ></SubMenu>
           <Menu.Item style={{ position: "absolute", bottom: "3rem" }}>
-            <Button danger block onClick={onLogOut}>
+            <Button type="primary" danger block onClick={onLogOut}>
               LOGOUT
             </Button>
           </Menu.Item>

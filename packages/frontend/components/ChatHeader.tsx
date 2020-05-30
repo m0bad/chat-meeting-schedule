@@ -1,11 +1,9 @@
 import React from "react";
-import { Avatar, Layout, Row, Col, Typography } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { Button } from "antd";
 import UserAvatar from "./UserAvatar";
+import { ScheduleOutlined } from "@ant-design/icons";
 
-const { Text } = Typography;
-
-const ChatHeader = ({ selectedUser, loggedInUser }) => {
+const ChatHeader = ({ selectedUser }) => {
   return (
     <>
       <div style={{ position: "relative" }}>
@@ -18,6 +16,13 @@ const ChatHeader = ({ selectedUser, loggedInUser }) => {
         >
           <UserAvatar username={selectedUser.username} />
         </div>
+        <Button
+          style={{ position: "absolute", right: 0, top: "1rem" }}
+          type="primary"
+          icon={<ScheduleOutlined />}
+        >
+          Schedule Meeting
+        </Button>
       </div>
     </>
   );
