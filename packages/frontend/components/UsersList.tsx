@@ -5,14 +5,7 @@ import { UserOutlined } from "@ant-design/icons";
 const { SubMenu } = Menu;
 
 const UsersList = ({ data, onClick, key, title, ...otherProps }) => {
-  const handleClick = useCallback(
-    user => {
-      const loggedInUser = JSON.parse(localStorage.getItem("user"));
-      console.log({ user, loggedInUser });
-      onClick(user);
-    },
-    [onClick],
-  );
+  const handleClick = useCallback(user => onClick(user), [onClick]);
 
   return (
     <SubMenu key={key} icon={<UserOutlined />} title={title} {...otherProps}>
