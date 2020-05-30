@@ -15,16 +15,24 @@ export class ChatService {
     private messageService: MessageService,
   ) {}
 
-  async getMessages(users: string[]): Promise<Message[]> {
+  async getMessages(_id: string): Promise<Message[]> {
+    let chatRoom = await this.chatModel.findOne({ _id });
+    if (!chatRoom)
+      throw new HttpException("Chat Not Found.", HttpStatus.NOT_FOUND);
+
+    return this.messageService.messagesModel.find({
+      chat: chatRoom._id,
+    });
+  }
+
+  async getChatForUsers(users: string[]): Promise<string> {
     let chatExists = await this.chatModel.findOne({
       users: { $all: users },
     });
     if (!chatExists)
       chatExists = await this.chatModel.create({ users, messages: [] });
 
-    return this.messageService.messagesModel.find({
-      chat: chatExists._id,
-    });
+    return chatExists._id;
   }
 
   async getFriends(user: string): Promise<UserDto[]> {
