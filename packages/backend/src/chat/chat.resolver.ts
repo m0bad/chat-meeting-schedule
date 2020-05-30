@@ -13,10 +13,15 @@ export class ChatResolver {
   constructor(private readonly chatService: ChatService) {}
 
   @Query(returns => [MessageDto])
-  async messages(
+  async messages(@Args("chat") chat: string): Promise<Message[]> {
+    return this.chatService.getMessages(chat);
+  }
+
+  @Query(returns => String)
+  async chatForUsers(
     @Args("users", { type: () => [String] }) users: string[],
-  ): Promise<Message[]> {
-    return this.chatService.getMessages(users);
+  ): Promise<string> {
+    return this.chatService.getChatForUsers(users);
   }
 
   @Query(returns => [UserDto])
@@ -35,15 +40,14 @@ export class ChatResolver {
       sender,
       chat,
     });
-    await pubSub.publish("messageAdded", { messageAdded: newMessage });
+    await pubSub.publish("newMessage", { newMessage });
     return newMessage;
   }
 
   @Subscription(returns => MessageDto, {
-    name: "messageAdded",
-    filter: (payload, variables) => payload.chat == variables.chat,
+    filter: (payload, variables) => payload.newMessage.chat == variables.chat,
   })
-  messageAdded() {
-    return pubSub.asyncIterator("messageAdded");
+  newMessage(@Args("chat") chat: string) {
+    return pubSub.asyncIterator("newMessage");
   }
 }
