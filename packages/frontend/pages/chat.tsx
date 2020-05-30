@@ -7,19 +7,10 @@ import { withApollo } from "../lib/apollo";
 import UsersList from "../components/UsersList";
 import { ChatWindow } from "../components/ChatWindow";
 import { useRouter } from "next/router";
+import {USERS_QUERY} from "../graphql/chat/chat.query";
 
 const { Sider } = Layout;
 const { SubMenu } = Menu;
-
-const USERS_QUERY = gql`
-  query users($user: String!) {
-    users(user: $user) {
-      _id
-      email
-      username
-    }
-  }
-`;
 
 const ChatPage = () => {
   const router = useRouter();

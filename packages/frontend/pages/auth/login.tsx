@@ -7,18 +7,10 @@ import gql from "graphql-tag";
 import { useRouter } from "next/router";
 import { useMutation } from "@apollo/react-hooks";
 import { LoginData, LoginVars } from "../../types/auth.type";
+import {LOGIN_MUTATION} from "../../graphql/auth/auth.mutation";
 
 const { Content } = Layout;
 
-const LOGIN_MUTATION = gql`
-  mutation LOGIN($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
-      _id
-      email
-      token
-    }
-  }
-`;
 
 const LoginPage = () => {
   const router = useRouter();

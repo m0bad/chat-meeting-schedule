@@ -7,19 +7,9 @@ import gql from "graphql-tag";
 import { RegisterData, RegisterVars } from "../../types/auth.type";
 import { useMutation } from "@apollo/react-hooks";
 import { useRouter } from "next/router";
+import { REGISTER_MUTATION } from "../../graphql/auth/auth.mutation";
 
 const { Content } = Layout;
-
-const REGISTER_MUTATION = gql`
-  mutation REGISTER($email: String!, $username: String!, $password: String!) {
-    register(email: $email, username: $username, password: $password) {
-      _id
-      email
-      username
-      token
-    }
-  }
-`;
 
 const RegisterPage = () => {
   const router = useRouter();

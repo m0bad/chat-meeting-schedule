@@ -1,59 +1,22 @@
 import { Avatar, Layout } from "antd";
-import { Message } from "./Message";
 import { MessageInput } from "./MessageInput";
 import React, { useCallback, useEffect } from "react";
 import { UserOutlined } from "@ant-design/icons";
 import gql from "graphql-tag";
 import { useMutation, useQuery } from "@apollo/react-hooks";
+import { MessagesList } from "./MessagesList";
+import {CHAT_ID_QUERY, MESSAGES_QUERY} from "../graphql/chat/chat.query";
+import {SEND_MESSAGE_MUTATION} from "../graphql/chat/chat.mutation";
+import {MESSAGES_SUBSCRIPTION} from "../graphql/chat/chat.subscription";
 
-const { Header, Content, Footer } = Layout;
-
-const MESSAGES_QUERY = gql`
-  query messages($chat: String!) {
-    messages(chat: $chat) {
-      _id
-      body
-      sender
-      createdAt
-    }
-  }
-`;
-
-const CHAT_ID_QUERY = gql`
-  query chatForUsers($users: [String!]!) {
-    chatForUsers(users: $users)
-  }
-`;
-
-const SEND_MESSAGE_MUTATION = gql`
-  mutation sendMessage($body: String!, $sender: String!, $chat: String!) {
-    sendMessage(body: $body, sender: $sender, chat: $chat) {
-      _id
-      body
-      sender
-      chat
-    }
-  }
-`;
-
-const MESSAGES_SUBSCRIPTION = gql`
-  subscription newMessage($chat: String!) {
-    newMessage(chat: $chat) {
-      _id
-      body
-      sender
-      chat
-      createdAt
-    }
-  }
-`;
+const { Header, Footer, Content } = Layout;
 
 export const ChatWindow = ({ selectedUser, loggedInUser }) => {
   const { data: chatID } = useQuery(CHAT_ID_QUERY, {
     variables: { users: [selectedUser._id, loggedInUser] },
   });
 
-  const { subscribeToMore, data } = useQuery(MESSAGES_QUERY, {
+  const { subscribeToMore, data, loading } = useQuery(MESSAGES_QUERY, {
     skip: !chatID,
     variables: { chat: chatID?.chatForUsers },
   });
@@ -109,23 +72,11 @@ export const ChatWindow = ({ selectedUser, loggedInUser }) => {
           overflowY: "scroll",
         }}
       >
-        <ul
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            margin: 0,
-            padding: 0,
-          }}
-        >
-          {data &&
-            data?.messages.map(message => (
-              <Message
-                isMe={message.sender === loggedInUser}
-                body={message.body}
-                key={message._id}
-              />
-            ))}
-        </ul>
+        <MessagesList
+          data={data}
+          loggedInUser={loggedInUser}
+          loading={loading}
+        />
       </Content>
       <Footer style={{ background: "#EEF7FE", padding: 4 }}>
         <MessageInput onSubmit={handleSubmit} />
