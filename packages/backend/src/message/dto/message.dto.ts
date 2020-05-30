@@ -13,4 +13,7 @@ export class MessageDto {
 
   @Field()
   chat: string;
+
+  @Field()
+  createdAt: Date;
 }
