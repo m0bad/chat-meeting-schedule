@@ -29,8 +29,7 @@ const RegisterPage = () => {
   >(REGISTER_MUTATION);
 
   if (data && data.register) {
-    localStorage.setItem("token", data.register.token);
-    console.log("Registered");
+    localStorage.setItem("user", JSON.stringify(data.register));
     router.replace("/chat");
   }
 

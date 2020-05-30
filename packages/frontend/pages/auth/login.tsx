@@ -27,8 +27,7 @@ const LoginPage = () => {
   );
 
   if (data && data.login) {
-    localStorage.setItem("token", data.login.token);
-    console.log("Logged In");
+    localStorage.setItem("user", JSON.stringify(data.login));
     router.replace("/chat");
   }
 
