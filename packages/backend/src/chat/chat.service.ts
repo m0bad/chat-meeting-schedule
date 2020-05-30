@@ -17,12 +17,7 @@ export class ChatService {
 
   async getMessages(users: string[]): Promise<Message[]> {
     let chatExists = await this.chatModel.findOne({
-      $or: [
-        // @ts-ignore
-        { users: { $all: [users[0], users[1]] } },
-        // @ts-ignore
-        { users: { $all: [users[1], users[0]] } },
-      ],
+      users: { $all: users },
     });
     if (!chatExists)
       chatExists = await this.chatModel.create({ users, messages: [] });
