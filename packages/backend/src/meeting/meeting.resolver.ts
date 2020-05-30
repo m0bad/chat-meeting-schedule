@@ -13,6 +13,11 @@ export class MeetingResolver {
     return this.meetingService.getMeetings(user);
   }
 
+  @Query(returns => [[Date]])
+  async unavailableTimes(@Args("user") user: string): Promise<Date[][]> {
+    return this.meetingService.getUnavailableTimes(user);
+  }
+
   @Mutation(returns => MeetingDto)
   async scheduleMeeting(@Args() args: MeetingArgsType): Promise<MeetingDto> {
     return this.meetingService.createMeeting(args);
