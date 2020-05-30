@@ -13,11 +13,11 @@ export const MessageSchema = new mongoose.Schema<Message>(
     body: String,
     sender: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: "user",
     },
     chat: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Chat",
+      ref: "chat",
     },
   },
   {

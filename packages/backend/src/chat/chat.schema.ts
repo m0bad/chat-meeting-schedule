@@ -12,13 +12,13 @@ export const ChatSchema = new mongoose.Schema<Chat>(
     users: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: "user",
       },
     ],
     messages: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Message",
+        ref: "message",
       },
     ],
   },

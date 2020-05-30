@@ -16,7 +16,7 @@ export const UserSchema = new mongoose.Schema<User>(
     chats: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Chat",
+        ref: "chat",
       },
     ],
   },
