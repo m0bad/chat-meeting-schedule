@@ -5,6 +5,7 @@ import { Chat } from "./chat.schema";
 import { MessageService } from "../message/message.service";
 import { MessageArgsDto } from "../message/dto/message-args.dto";
 import { Message } from "../message/message.schema";
+import { UserDto } from "../user/dto/user.dto";
 
 @Injectable()
 export class ChatService {
@@ -14,14 +15,32 @@ export class ChatService {
     private messageService: MessageService,
   ) {}
 
-  async getMessagesForChat(chat: string): Promise<Message[]> {
-    // @ts-ignore
-    return this.messageService.messagesModel.find({ chat});
+  async getMessages(users: string[]): Promise<Message[]> {
+    let chatExists = await this.chatModel.findOne({
+      $or: [
+        // @ts-ignore
+        { users: { $all: [users[0], users[1]] } },
+        // @ts-ignore
+        { users: { $all: [users[1], users[0]] } },
+      ],
+    });
+    if (!chatExists)
+      chatExists = await this.chatModel.create({ users, messages: [] });
+
+    return this.messageService.messagesModel.find({
+      chat: chatExists._id,
+    });
   }
 
-  async createChat(users: string[]): Promise<string> {
-    const chat = await this.chatModel.create({ users: users, messages: [] });
-    return chat._id;
+  async getFriends(user: string): Promise<UserDto[]> {
+    const chats = await this.chatModel
+      .find({ users: user as any })
+      .populate("users");
+
+    return chats
+      .map(chat => chat.users)
+      .reduce((acc, cur) => acc.concat(cur), [])
+      .filter(u => u._id != user);
   }
 
   async sendMessage(data: MessageArgsDto): Promise<Message> {
