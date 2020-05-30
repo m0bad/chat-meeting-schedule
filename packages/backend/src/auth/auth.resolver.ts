@@ -51,6 +51,12 @@ export class AuthResolver {
     const token = await this.authService.login(user);
 
     // @ts-ignore
-    return { _id: user._doc._id, email: user._doc.email, token };
+    const { _id, email: userEmail, username } = user._doc;
+    return {
+      _id,
+      email: userEmail,
+      username,
+      token,
+    };
   }
 }
