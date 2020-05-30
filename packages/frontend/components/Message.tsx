@@ -4,8 +4,8 @@ export const Message = ({ isMe, body }) => (
   <li
     style={{
       display: "block",
-      alignSelf: isMe ? "flex-start" : "flex-end",
-      background: "white",
+      alignSelf: isMe ? "flex-end" : "flex-start",
+      background: isMe ? "#DCF8C6" : "white",
       width: "fit-content",
       maxWidth: "50%",
       padding: "8px 24px",
