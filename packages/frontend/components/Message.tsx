@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Message = ({ isMe, body, id }) => (
+export const Message = ({ isMe, body }) => (
   <li
     style={{
       display: "block",
@@ -12,7 +12,6 @@ export const Message = ({ isMe, body, id }) => (
       borderRadius: 8,
       margin: "8px 16px",
     }}
-    key={id}
   >
     {body}
   </li>
