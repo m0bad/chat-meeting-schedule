@@ -4,7 +4,7 @@ import { UserOutlined } from "@ant-design/icons";
 
 const { Text } = Typography;
 
-const UserAvatar = ({ username }) => {
+const UserAvatar = ({ username, textColor = "rgba(0, 0, 0, 0.65)" }) => {
   return (
     <>
       <Avatar
@@ -17,7 +17,7 @@ const UserAvatar = ({ username }) => {
       />
       <Text
         strong
-        style={{ fontSize: "16px", paddingLeft: "10px", color: "#4FC3F7" }}
+        style={{ fontSize: "16px", paddingLeft: "10px", color: textColor }}
       >
         {username}
       </Text>

@@ -1,13 +1,12 @@
-import { Avatar, Layout } from "antd";
+import { Layout } from "antd";
 import { MessageInput } from "./MessageInput";
 import React, { useCallback, useEffect } from "react";
-import { UserOutlined } from "@ant-design/icons";
-import gql from "graphql-tag";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { MessagesList } from "./MessagesList";
-import {CHAT_ID_QUERY, MESSAGES_QUERY} from "../graphql/chat/chat.query";
-import {SEND_MESSAGE_MUTATION} from "../graphql/chat/chat.mutation";
-import {MESSAGES_SUBSCRIPTION} from "../graphql/chat/chat.subscription";
+import { CHAT_ID_QUERY, MESSAGES_QUERY } from "../graphql/chat/chat.query";
+import { SEND_MESSAGE_MUTATION } from "../graphql/chat/chat.mutation";
+import { MESSAGES_SUBSCRIPTION } from "../graphql/chat/chat.subscription";
+import ChatHeader from "./ChatHeader";
 
 const { Header, Footer, Content } = Layout;
 
@@ -57,11 +56,7 @@ export const ChatWindow = ({ selectedUser, loggedInUser }) => {
       <Header
         style={{ paddingLeft: 10, textAlign: "center", background: "white" }}
       >
-        <Avatar
-          style={{ backgroundColor: "#87d068", margin: "5px" }}
-          icon={<UserOutlined />}
-        />
-        {selectedUser?.username || "Chat Demo"}
+        <ChatHeader selectedUser={selectedUser} loggedInUser={loggedInUser} />
       </Header>
       <Content
         style={{
