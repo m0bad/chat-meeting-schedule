@@ -16,17 +16,6 @@ const ChatHeader = ({ selectedUser, loggedInUser }) => {
             left: 0,
           }}
         >
-          {/*<Avatar*/}
-          {/*  size="large"*/}
-          {/*  style={{*/}
-          {/*    backgroundColor: "#87d068",*/}
-          {/*    margin: "5px",*/}
-          {/*  }}*/}
-          {/*  icon={<UserOutlined style={{ fontSize: "22px" }} />}*/}
-          {/*/>*/}
-          {/*<Text strong style={{ fontSize: "16px", paddingLeft: "10px" }}>*/}
-          {/*  {selectedUser.username}*/}
-          {/*</Text>*/}
           <UserAvatar username={selectedUser.username} />
         </div>
       </div>

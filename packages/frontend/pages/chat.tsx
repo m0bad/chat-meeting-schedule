@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
-import { Divider, Layout, Menu } from "antd";
+import { Divider, Layout, Menu, Button } from "antd";
 import { UsergroupAddOutlined } from "@ant-design/icons";
 import { withApollo } from "../lib/apollo";
 import UsersList from "../components/UsersList";
@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import { USERS_QUERY } from "../graphql/chat/chat.query";
 import UserAvatar from "../components/UserAvatar";
 
-const { Sider } = Layout;
+const { Sider, Footer } = Layout;
 const { SubMenu } = Menu;
 
 const ChatPage = () => {
@@ -29,6 +29,11 @@ const ChatPage = () => {
     else router.replace("/auth/login");
   }, []);
 
+  const onLogOut = useCallback(() => {
+    localStorage.clear();
+    router.replace("/auth/login");
+  }, []);
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider
@@ -37,8 +42,8 @@ const ChatPage = () => {
         onCollapse={() => setCollapsed(!collapsed)}
         theme="light"
         width="20vw"
+        style={{ position: "relative" }}
       >
-        {console.log({ loggedInUser })}
         <UserAvatar username={loggedInUser?.username} textColor="#4FC3F7" />
         <Divider />
         <Menu mode="inline">
@@ -53,6 +58,11 @@ const ChatPage = () => {
             icon={<UsergroupAddOutlined />}
             title="Approved Meetings"
           ></SubMenu>
+          <Menu.Item style={{ position: "absolute", bottom: "3rem" }}>
+            <Button danger block onClick={onLogOut}>
+              LOGOUT
+            </Button>
+          </Menu.Item>
         </Menu>
       </Sider>
       {selectedUser && (
