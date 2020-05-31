@@ -4,11 +4,11 @@ import { UserOutlined } from "@ant-design/icons";
 
 const { Text } = Typography;
 
-const UserAvatar = ({ username, textColor = "rgba(0, 0, 0, 0.65)" }) => {
+const UserAvatar = ({ username, size, textColor = "rgba(0, 0, 0, 0.65)" }) => {
   return (
     <>
       <Avatar
-        size="large"
+        size={size}
         style={{
           backgroundColor: "#87d068",
           margin: "5px",
@@ -16,7 +16,7 @@ const UserAvatar = ({ username, textColor = "rgba(0, 0, 0, 0.65)" }) => {
         icon={<UserOutlined style={{ fontSize: "22px" }} />}
       />
       <Text
-        strong
+        strong={size === "large"}
         style={{ fontSize: "16px", paddingLeft: "10px", color: textColor }}
       >
         {username}
