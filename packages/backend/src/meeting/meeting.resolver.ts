@@ -1,6 +1,6 @@
 import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { MeetingArgsType } from "./dto/meeting-args.dto";
-import { MeetingDto } from "./dto/meeting.dto";
+import { MeetingDto, MeetingResultDto } from "./dto/meeting.dto";
 import { Meeting } from "./meeting.schema";
 import { MeetingService } from "./meeting.service";
 
@@ -8,8 +8,8 @@ import { MeetingService } from "./meeting.service";
 export class MeetingResolver {
   constructor(private readonly meetingService: MeetingService) {}
 
-  @Query(returns => [MeetingDto])
-  async meetings(@Args("user") user: string): Promise<MeetingDto[]> {
+  @Query(returns => MeetingResultDto)
+  async meetings(@Args("user") user: string): Promise<MeetingResultDto> {
     return this.meetingService.getMeetings(user);
   }
 
