@@ -1,16 +1,16 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
-import { Divider, Layout, Menu, Button } from "antd";
-import { UsergroupAddOutlined } from "@ant-design/icons";
+import { Button, Divider, Layout, Menu } from "antd";
 import { withApollo } from "../lib/apollo";
 import UsersList from "../components/UsersList";
 import { ChatWindow } from "../components/ChatWindow";
 import { useRouter } from "next/router";
 import { USERS_QUERY } from "../graphql/chat/chat.query";
 import UserAvatar from "../components/UserAvatar";
+import { MeetingsList } from "../components/MeetingsList";
+import { MEETINGS_QUERY } from "../graphql/meeting/meeting.query";
 
-const { Sider, Footer } = Layout;
-const { SubMenu } = Menu;
+const { Sider } = Layout;
 
 const ChatPage = () => {
   const router = useRouter();
@@ -23,15 +23,20 @@ const ChatPage = () => {
     variables: { user: loggedInUser?._id },
   });
 
-  useEffect(() => {
-    const loggedInUser = JSON.parse(localStorage.getItem("user"));
-    if (loggedInUser) setLoggedInUser(loggedInUser);
-    else router.replace("/auth/login");
-  }, []);
+  const { data: userMeetings } = useQuery(MEETINGS_QUERY, {
+    skip: !loggedInUser,
+    variables: { user: loggedInUser?._id },
+  });
 
   const onLogOut = useCallback(() => {
     localStorage.clear();
     router.replace("/auth/login");
+  }, []);
+
+  useEffect(() => {
+    const loggedInUser = JSON.parse(localStorage.getItem("user"));
+    if (loggedInUser) setLoggedInUser(loggedInUser);
+    else router.replace("/auth/login");
   }, []);
 
   return (
@@ -44,7 +49,11 @@ const ChatPage = () => {
         width="20vw"
         style={{ position: "relative" }}
       >
-        <UserAvatar username={loggedInUser?.username} textColor="#4FC3F7" />
+        <UserAvatar
+          username={loggedInUser?.username}
+          textColor="#4FC3F7"
+          size="large"
+        />
         <Divider />
         <Menu mode="inline">
           <UsersList
@@ -54,11 +63,10 @@ const ChatPage = () => {
             key="users"
             title="Users"
           />
-          <SubMenu
-            key="meetings"
-            icon={<UsergroupAddOutlined />}
-            title="Approved Meetings"
-          ></SubMenu>
+          <MeetingsList
+            meetings={userMeetings?.meetings}
+            loggedInUser={loggedInUser}
+          />
           <Menu.Item style={{ position: "absolute", bottom: "3rem" }}>
             <Button type="primary" danger block onClick={onLogOut}>
               LOGOUT
