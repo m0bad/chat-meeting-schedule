@@ -1,10 +1,6 @@
-import React, { useCallback, useState } from "react";
-import { Menu, Modal, Spin, Typography } from "antd";
-import {
-  LeftOutlined,
-  RightOutlined,
-  UsergroupAddOutlined,
-} from "@ant-design/icons";
+import React, {useCallback, useState} from "react";
+import {Menu, Modal, Spin, Typography} from "antd";
+import {LeftOutlined, RightOutlined, UsergroupAddOutlined,} from "@ant-design/icons";
 import UserAvatar from "./UserAvatar";
 
 const { SubMenu } = Menu;

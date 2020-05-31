@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from "react";
-import { Input } from "antd";
-import { SendOutlined } from "@ant-design/icons";
+import React, {useCallback, useState} from "react";
+import {Input} from "antd";
+import {SendOutlined} from "@ant-design/icons";
 
 const { TextArea } = Input;
 

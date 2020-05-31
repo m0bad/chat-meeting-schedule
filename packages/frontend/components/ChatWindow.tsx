@@ -1,11 +1,11 @@
-import { Layout } from "antd";
-import { MessageInput } from "./MessageInput";
-import React, { useCallback, useEffect } from "react";
-import { useMutation, useQuery } from "@apollo/react-hooks";
-import { MessagesList } from "./MessagesList";
-import { CHAT_ID_QUERY, MESSAGES_QUERY } from "../graphql/chat/chat.query";
-import { SEND_MESSAGE_MUTATION } from "../graphql/chat/chat.mutation";
-import { MESSAGES_SUBSCRIPTION } from "../graphql/chat/chat.subscription";
+import {Layout} from "antd";
+import {MessageInput} from "./MessageInput";
+import React, {useCallback, useEffect} from "react";
+import {useMutation, useQuery} from "@apollo/react-hooks";
+import {MessagesList} from "./MessagesList";
+import {CHAT_ID_QUERY, MESSAGES_QUERY} from "../graphql/chat/chat.query";
+import {SEND_MESSAGE_MUTATION} from "../graphql/chat/chat.mutation";
+import {MESSAGES_SUBSCRIPTION} from "../graphql/chat/chat.subscription";
 import ChatHeader from "./ChatHeader";
 
 const { Header, Footer, Content } = Layout;

@@ -1,7 +1,7 @@
 import UserAvatar from "./UserAvatar";
-import { Button } from "antd";
+import {Button} from "antd";
 import React from "react";
-import { ScheduleOutlined } from "@ant-design/icons";
+import {ScheduleOutlined} from "@ant-design/icons";
 
 export const HeaderView = ({ selectedUser, setVisible }) => (
   <div style={{ position: "relative" }}>

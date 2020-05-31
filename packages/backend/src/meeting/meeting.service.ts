@@ -1,10 +1,10 @@
-import { Injectable } from "@nestjs/common";
-import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
-import { Meeting } from "./meeting.schema";
-import { MeetingArgsType } from "./dto/meeting-args.dto";
-import { MeetingDto, MeetingResultDto } from "./dto/meeting.dto";
-import { MeetingsUnAvailableTimesDto } from "./dto/meeting-unavailable-times.dto";
+import {Injectable} from "@nestjs/common";
+import {InjectModel} from "@nestjs/mongoose";
+import {Model} from "mongoose";
+import {Meeting} from "./meeting.schema";
+import {MeetingArgsType} from "./dto/meeting-args.dto";
+import {MeetingDto, MeetingResultDto} from "./dto/meeting.dto";
+import {MeetingsUnAvailableTimesDto} from "./dto/meeting-unavailable-times.dto";
 
 @Injectable()
 export class MeetingService {

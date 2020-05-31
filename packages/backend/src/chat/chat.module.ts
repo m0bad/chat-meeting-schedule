@@ -1,10 +1,9 @@
-import { forwardRef, Module } from "@nestjs/common";
-import { ChatResolver } from "./chat.resolver";
-import { ChatService } from "./chat.service";
-import { MongooseModule } from "@nestjs/mongoose";
-import { ChatSchema } from "./chat.schema";
-import { MessageModule } from "../message/message.module";
-import { MessageService } from "../message/message.service";
+import {Module} from "@nestjs/common";
+import {ChatResolver} from "./chat.resolver";
+import {ChatService} from "./chat.service";
+import {MongooseModule} from "@nestjs/mongoose";
+import {ChatSchema} from "./chat.schema";
+import {MessageModule} from "../message/message.module";
 
 @Module({
   imports: [

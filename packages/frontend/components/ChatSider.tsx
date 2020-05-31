@@ -1,8 +1,8 @@
 import UserAvatar from "./UserAvatar";
-import { Button, Divider, Layout, Menu } from "antd";
+import {Button, Divider, Layout, Menu} from "antd";
 import UsersList from "./UsersList";
-import { MeetingsList } from "./MeetingsList";
-import React, { useState } from "react";
+import {MeetingsList} from "./MeetingsList";
+import React, {useState} from "react";
 
 const { Sider } = Layout;
 

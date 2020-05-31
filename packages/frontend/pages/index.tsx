@@ -1,7 +1,7 @@
-import { withApollo } from "../lib/apollo";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { Spin } from "antd";
+import {withApollo} from "../lib/apollo";
+import {useRouter} from "next/router";
+import {useEffect} from "react";
+import {Spin} from "antd";
 
 const IndexPage = () => {
   const router = useRouter();

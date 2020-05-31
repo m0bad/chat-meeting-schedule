@@ -1,12 +1,11 @@
-import React, { useCallback } from "react";
-import { Button, Col, Layout, Row } from "antd";
+import React, {useCallback} from "react";
+import {Button, Col, Layout, Row} from "antd";
 import AuthForm from "../../components/AuthForm";
-import { withApollo } from "../../lib/apollo";
+import {withApollo} from "../../lib/apollo";
 import Link from "next/link";
-import gql from "graphql-tag";
-import { useRouter } from "next/router";
-import { useMutation } from "@apollo/react-hooks";
-import { LoginData, LoginVars } from "../../types/auth.type";
+import {useRouter} from "next/router";
+import {useMutation} from "@apollo/react-hooks";
+import {LoginData, LoginVars} from "../../types/auth.type";
 import {LOGIN_MUTATION} from "../../graphql/auth/auth.mutation";
 
 const { Content } = Layout;

@@ -1,10 +1,10 @@
-import { Args, Mutation, Query, Resolver, Subscription } from "@nestjs/graphql";
-import { ChatService } from "./chat.service";
-import { MessageDto } from "../message/dto/message.dto";
-import { Message } from "../message/message.schema";
-import { Chat } from "./chat.schema";
-import { UserDto } from "../user/dto/user.dto";
-import { PubSub } from "apollo-server-express";
+import {Args, Mutation, Query, Resolver, Subscription} from "@nestjs/graphql";
+import {ChatService} from "./chat.service";
+import {MessageDto} from "../message/dto/message.dto";
+import {Message} from "../message/message.schema";
+import {Chat} from "./chat.schema";
+import {UserDto} from "../user/dto/user.dto";
+import {PubSub} from "apollo-server-express";
 
 const pubSub = new PubSub();
 

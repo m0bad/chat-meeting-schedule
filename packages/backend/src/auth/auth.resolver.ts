@@ -1,8 +1,8 @@
-import { Resolver, Args, Mutation } from "@nestjs/graphql";
-import { AuthService } from "./auth.service";
-import { UserService } from "../user/user.service";
-import { AuthResultDto } from "./dto/auth-result.dto";
-import { HttpException, HttpStatus } from "@nestjs/common";
+import {Args, Mutation, Resolver} from "@nestjs/graphql";
+import {AuthService} from "./auth.service";
+import {UserService} from "../user/user.service";
+import {AuthResultDto} from "./dto/auth-result.dto";
+import {HttpException, HttpStatus} from "@nestjs/common";
 
 @Resolver("Auth")
 export class AuthResolver {

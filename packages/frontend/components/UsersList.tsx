@@ -1,6 +1,6 @@
-import React, { useCallback } from "react";
-import { Avatar, Menu, Spin } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import React, {useCallback} from "react";
+import {Avatar, Menu, Spin} from "antd";
+import {UserOutlined} from "@ant-design/icons";
 
 const { SubMenu } = Menu;
 

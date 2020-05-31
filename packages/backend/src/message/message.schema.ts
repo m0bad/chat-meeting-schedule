@@ -1,6 +1,6 @@
 import * as mongoose from "mongoose";
-import { User } from "../user/user.schema";
-import { Chat } from "../chat/chat.schema";
+import {User} from "../user/user.schema";
+import {Chat} from "../chat/chat.schema";
 
 export interface Message extends mongoose.Document {
   body: string;

@@ -1,6 +1,6 @@
-import { Message } from "./Message";
+import {Message} from "./Message";
 import React from "react";
-import { Spin } from "antd";
+import {Spin} from "antd";
 
 export const MessagesList = ({ data, loggedInUser, loading }) => (
   <>

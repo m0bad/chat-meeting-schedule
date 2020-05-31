@@ -1,5 +1,5 @@
 import * as mongoose from "mongoose";
-import { MeetingTypeEnum } from "./dto/meeting-type.enum";
+import {MeetingTypeEnum} from "./dto/meeting-type.enum";
 
 export interface Meeting extends mongoose.Document {
   type: MeetingTypeEnum;

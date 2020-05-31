@@ -1,11 +1,11 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
-import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
-import { Chat } from "./chat.schema";
-import { MessageService } from "../message/message.service";
-import { MessageArgsDto } from "../message/dto/message-args.dto";
-import { Message } from "../message/message.schema";
-import { UserDto } from "../user/dto/user.dto";
+import {HttpException, HttpStatus, Injectable} from "@nestjs/common";
+import {InjectModel} from "@nestjs/mongoose";
+import {Model} from "mongoose";
+import {Chat} from "./chat.schema";
+import {MessageService} from "../message/message.service";
+import {MessageArgsDto} from "../message/dto/message-args.dto";
+import {Message} from "../message/message.schema";
+import {UserDto} from "../user/dto/user.dto";
 
 @Injectable()
 export class ChatService {

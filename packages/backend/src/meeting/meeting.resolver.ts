@@ -1,9 +1,9 @@
-import { Args, Mutation, Query, Resolver, Subscription } from "@nestjs/graphql";
-import { MeetingArgsType } from "./dto/meeting-args.dto";
-import { MeetingDto, MeetingResultDto } from "./dto/meeting.dto";
-import { Meeting } from "./meeting.schema";
-import { MeetingService } from "./meeting.service";
-import { PubSub } from "apollo-server-express";
+import {Args, Mutation, Query, Resolver, Subscription} from "@nestjs/graphql";
+import {MeetingArgsType} from "./dto/meeting-args.dto";
+import {MeetingDto, MeetingResultDto} from "./dto/meeting.dto";
+import {Meeting} from "./meeting.schema";
+import {MeetingService} from "./meeting.service";
+import {PubSub} from "apollo-server-express";
 import {MeetingsUnAvailableTimesDto} from "./dto/meeting-unavailable-times.dto";
 
 const pubSub = new PubSub();

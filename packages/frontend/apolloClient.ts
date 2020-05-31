@@ -1,11 +1,11 @@
-import { ApolloClient } from "apollo-client";
-import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
-import { HttpLink } from "apollo-link-http";
-import { split } from "apollo-link";
-import { NextPageContext } from "next";
-import { getMainDefinition } from "apollo-utilities";
+import {ApolloClient} from "apollo-client";
+import {InMemoryCache, NormalizedCacheObject} from "apollo-cache-inmemory";
+import {HttpLink} from "apollo-link-http";
+import {split} from "apollo-link";
+import {NextPageContext} from "next";
+import {getMainDefinition} from "apollo-utilities";
 
-import { WebSocketLink } from "apollo-link-ws";
+import {WebSocketLink} from "apollo-link-ws";
 
 let wsLink;
 if (process.browser) {

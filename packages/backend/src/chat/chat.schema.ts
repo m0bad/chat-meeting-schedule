@@ -1,6 +1,6 @@
 import * as mongoose from "mongoose";
-import { User } from "../user/user.schema";
-import { Message } from "../message/message.schema";
+import {User} from "../user/user.schema";
+import {Message} from "../message/message.schema";
 
 export interface Chat extends mongoose.Document {
   users: User[];

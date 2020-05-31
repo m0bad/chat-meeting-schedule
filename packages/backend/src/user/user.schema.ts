@@ -1,5 +1,5 @@
 import * as mongoose from "mongoose";
-import { Chat } from "../chat/chat.schema";
+import {Chat} from "../chat/chat.schema";
 
 export interface User extends mongoose.Document {
   email: string;

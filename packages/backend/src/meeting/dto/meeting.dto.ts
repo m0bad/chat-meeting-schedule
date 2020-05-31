@@ -1,6 +1,6 @@
-import { Field, ObjectType } from "@nestjs/graphql";
-import { MeetingTypeEnum } from "./meeting-type.enum";
-import { MeetingWithUserDto } from "./meeting-with-user.dto";
+import {Field, ObjectType} from "@nestjs/graphql";
+import {MeetingTypeEnum} from "./meeting-type.enum";
+import {MeetingWithUserDto} from "./meeting-with-user.dto";
 
 @ObjectType()
 export class MeetingDto {
