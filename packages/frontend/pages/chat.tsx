@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery, useSubscription } from "@apollo/react-hooks";
 import { Button, Divider, Layout, Menu } from "antd";
 import { withApollo } from "../lib/apollo";
 import UsersList from "../components/UsersList";
@@ -9,8 +9,22 @@ import { USERS_QUERY } from "../graphql/chat/chat.query";
 import UserAvatar from "../components/UserAvatar";
 import { MeetingsList } from "../components/MeetingsList";
 import { MEETINGS_QUERY } from "../graphql/meeting/meeting.query";
+import gql from "graphql-tag";
 
 const { Sider } = Layout;
+
+export const MEETINGS_SUBSCRIPTION = gql`
+  subscription newMeeting($user: String!) {
+    newMeeting(user: $user) {
+      _id
+      type
+      location
+      users
+      startDate
+      endDate
+    }
+  }
+`;
 
 const ChatPage = () => {
   const router = useRouter();
@@ -39,6 +53,13 @@ const ChatPage = () => {
     else router.replace("/auth/login");
   }, []);
 
+  useSubscription(MEETINGS_SUBSCRIPTION, {
+    variables: { user: loggedInUser?._id },
+    onSubscriptionData({ subscriptionData }) {
+      if (!subscriptionData) return;
+      console.log({ subscriptionData });
+    },
+  });
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider
