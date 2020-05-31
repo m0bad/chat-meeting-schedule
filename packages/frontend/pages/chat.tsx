@@ -8,6 +8,7 @@ import { USERS_QUERY } from "../graphql/chat/chat.query";
 import { MEETINGS_QUERY } from "../graphql/meeting/meeting.query";
 import gql from "graphql-tag";
 import { ChatSider } from "../components/ChatSider";
+import { openNotification } from "../utils/notifications";
 
 export const MEETINGS_SUBSCRIPTION = gql`
   subscription newMeeting($user: String!) {
@@ -47,13 +48,6 @@ const ChatPage = () => {
     if (loggedInUser) setLoggedInUser(loggedInUser);
     else router.replace("/auth/login");
   }, []);
-
-  const openNotification = ({ message, description }) => {
-    notification.open({
-      message,
-      description,
-    });
-  };
 
   useSubscription(MEETINGS_SUBSCRIPTION, {
     variables: { user: loggedInUser?._id },
