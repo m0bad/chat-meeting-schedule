@@ -4,9 +4,14 @@ import { UserOutlined } from "@ant-design/icons";
 
 const { Text } = Typography;
 
-const UserAvatar = ({ username, size, textColor = "rgba(0, 0, 0, 0.65)" }) => {
+const UserAvatar = ({
+  username,
+  size,
+  textColor = "rgba(0, 0, 0, 0.65)",
+  onClick = null,
+}) => {
   return (
-    <>
+    <div onClick={onClick}>
       <Avatar
         size={size}
         style={{
@@ -21,7 +26,7 @@ const UserAvatar = ({ username, size, textColor = "rgba(0, 0, 0, 0.65)" }) => {
       >
         {username}
       </Text>
-    </>
+    </div>
   );
 };
 
