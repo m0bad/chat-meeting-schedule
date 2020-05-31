@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useQuery, useSubscription } from "@apollo/react-hooks";
-import { Layout } from "antd";
+import { Layout, notification } from "antd";
 import { withApollo } from "../lib/apollo";
 import { ChatWindow } from "../components/ChatWindow";
 import { useRouter } from "next/router";
@@ -48,11 +48,31 @@ const ChatPage = () => {
     else router.replace("/auth/login");
   }, []);
 
+  const openNotification = ({ message, description }) => {
+    notification.open({
+      message,
+      description,
+    });
+  };
+
   useSubscription(MEETINGS_SUBSCRIPTION, {
     variables: { user: loggedInUser?._id },
     onSubscriptionData({ subscriptionData }) {
       if (!subscriptionData) return;
-      console.log({ subscriptionData });
+      const {
+        startDate,
+        endDate,
+        location,
+        type,
+      } = subscriptionData.data.newMeeting;
+      openNotification({
+        message: "Success!",
+        description: `${type} Meeting Scheduled Successfully on day ${new Date(
+          startDate,
+        ).toDateString()} from ${new Date(startDate).getHours()} to ${new Date(
+          endDate,
+        ).getHours()} at ${location}`,
+      });
     },
   });
   return (
