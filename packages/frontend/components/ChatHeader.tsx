@@ -1,11 +1,10 @@
-import React, { useCallback, useMemo, useState } from "react";
-import { Button, Modal, TimePicker } from "antd";
-import UserAvatar from "./UserAvatar";
-import { ScheduleOutlined } from "@ant-design/icons";
-import { useMutation, useQuery } from "@apollo/react-hooks";
-import { SCHEDULE_MEETING } from "../graphql/meeting/meeting.mutation";
-import { UNAVAILABLE_TIMES_QUERY } from "../graphql/meeting/meeting.query";
-import { ScheduleMeetingForm } from "./ScheduleMeetingForm";
+import React, {useCallback, useState} from "react";
+import {Modal} from "antd";
+import {useMutation, useQuery} from "@apollo/react-hooks";
+import {SCHEDULE_MEETING} from "../graphql/meeting/meeting.mutation";
+import {UNAVAILABLE_TIMES_QUERY} from "../graphql/meeting/meeting.query";
+import {ScheduleMeetingForm} from "./ScheduleMeetingForm";
+import {HeaderView} from "./HeaderView";
 
 const ChatHeader = ({ selectedUser, loggedInUser }) => {
   const [visible, setVisible] = useState(false);
@@ -43,25 +42,7 @@ const ChatHeader = ({ selectedUser, loggedInUser }) => {
 
   return (
     <>
-      <div style={{ position: "relative" }}>
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-          }}
-        >
-          <UserAvatar username={selectedUser.username} size="default" />
-        </div>
-        <Button
-          style={{ position: "absolute", right: 0, top: "1rem" }}
-          type="primary"
-          icon={<ScheduleOutlined />}
-          onClick={() => setVisible(true)}
-        >
-          Schedule Meeting
-        </Button>
-      </div>
+      <HeaderView selectedUser={selectedUser} setVisible={setVisible} />
       <Modal
         visible={visible}
         title="Schedule Meeting"
