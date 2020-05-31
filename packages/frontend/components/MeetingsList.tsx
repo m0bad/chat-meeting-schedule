@@ -1,39 +1,15 @@
 import React from "react";
-import {Menu} from "antd";
-import {LeftOutlined, RightOutlined, UsergroupAddOutlined,} from "@ant-design/icons";
+import { Menu } from "antd";
+import {
+  LeftOutlined,
+  RightOutlined,
+  UsergroupAddOutlined,
+} from "@ant-design/icons";
 import UserAvatar from "./UserAvatar";
 
 const { SubMenu } = Menu;
 
 export const MeetingsList = ({ meetings, loggedInUser, ...otherProps }) => {
-  // const [comingMeetings, setComingMeetings] = useState([]);
-  // const [pastMeetings, setPastMeetings] = useState([]);
-
-  // useEffect(() => {
-  //   console.log({meetings})
-  //   if (meetings) {
-  //     meetings?.coming?.map(meeting => {
-  //       setComingMeetings([
-  //         ...comingMeetings,
-  //         [meeting.startDate, meeting.endDate],
-  //       ]);
-  //     });
-  //     meetings?.past?.map(meeting => {
-  //       setPastMeetings([
-  //         ...pastMeetings,
-  //         [meeting.startDate, meeting.endDate],
-  //       ]);
-  //     });
-  //   }
-  // }, [meetings]);
-  //
-  // useEffect(() => {
-  //   return () => {
-  //     setComingMeetings([]);
-  //     setPastMeetings([]);
-  //   };
-  // }, []);
-
   return (
     <SubMenu
       key="meetings"
@@ -41,7 +17,7 @@ export const MeetingsList = ({ meetings, loggedInUser, ...otherProps }) => {
       title="Meetings"
       {...otherProps}
     >
-      <SubMenu key="coming" icon={<RightOutlined />} title="Coming">
+      <SubMenu key="coming" icon={<RightOutlined />} title="Upcoming">
         {meetings?.coming &&
           meetings?.coming?.map(meeting => (
             <Menu.Item key={meeting._id}>
@@ -76,4 +52,3 @@ export const MeetingsList = ({ meetings, loggedInUser, ...otherProps }) => {
     </SubMenu>
   );
 };
-
