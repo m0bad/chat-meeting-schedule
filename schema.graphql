@@ -36,6 +36,11 @@ type MeetingWithUserDto {
     users: [UserDto!]!
 }
 
+type MeetingsUnAvailableTimesDto {
+    date: String!
+    hours: [Float!]!
+}
+
 type MessageDto {
     _id: String!
     body: String!
@@ -57,11 +62,12 @@ type Query {
     hello: String!
     meetings(user: String!): MeetingResultDto!
     messages(chat: String!): [MessageDto!]!
-    unavailableTimes(user: String!): [[DateTime!]!]!
+    unavailableTimes(user: String!): [MeetingsUnAvailableTimesDto!]!
     users(user: String!): [UserDto!]!
 }
 
 type Subscription {
+    newMeeting(user: String!): MeetingDto!
     newMessage(chat: String!): MessageDto!
 }
 
