@@ -4,6 +4,7 @@ import { Model } from "mongoose";
 import { Meeting } from "./meeting.schema";
 import { MeetingArgsType } from "./dto/meeting-args.dto";
 import { MeetingDto, MeetingResultDto } from "./dto/meeting.dto";
+import { MeetingsUnAvailableTimesDto } from "./dto/meeting-unavailable-times.dto";
 
 @Injectable()
 export class MeetingService {
@@ -34,11 +35,10 @@ export class MeetingService {
     return this.meetingModel.create(data);
   }
 
-  async getUnavailableTimes(user: string): Promise<Date[][]> {
+  async getUnavailableTimes(user: string): Promise<any> {
     const userMeetings = await this.meetingModel.find({
       users: user,
     });
-
     return this.getComingMeetings(userMeetings);
   }
 
@@ -47,13 +47,33 @@ export class MeetingService {
     return false;
   }
 
-  getComingMeetings(meetings): Date[][] {
+  getComingMeetings(meetings): MeetingsUnAvailableTimesDto[] {
     let result = [];
     meetings.map(meeting => {
       if (!this.isPastDate(meeting.startDate)) {
-        result = [...result, [meeting.startDate, meeting.endDate]];
+        let hours = [];
+        const ranges = this.getRanges(
+          meeting.startDate.getHours(),
+          meeting.endDate.getHours(),
+        );
+        hours = [...hours, ...ranges];
+        result = [
+          ...result,
+          {
+            date: meeting.startDate,
+            hours,
+          },
+        ];
       }
     });
     return result;
+  }
+
+  getRanges(low, high) {
+    let list = [];
+    for (let i = low; i <= high; i++) {
+      list.push(i);
+    }
+    return list;
   }
 }
