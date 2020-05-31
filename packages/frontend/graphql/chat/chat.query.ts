@@ -10,7 +10,6 @@ export const USERS_QUERY = gql`
   }
 `;
 
-
 export const MESSAGES_QUERY = gql`
   query messages($chat: String!) {
     messages(chat: $chat) {
@@ -27,3 +26,4 @@ export const CHAT_ID_QUERY = gql`
     chatForUsers(users: $users)
   }
 `;
+
