@@ -14,7 +14,7 @@ const ChatHeader = ({ selectedUser }) => {
             left: 0,
           }}
         >
-          <UserAvatar username={selectedUser.username} />
+          <UserAvatar username={selectedUser.username} size="default" />
         </div>
         <Button
           style={{ position: "absolute", right: 0, top: "1rem" }}
