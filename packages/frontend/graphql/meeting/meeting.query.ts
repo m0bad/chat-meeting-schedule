@@ -28,3 +28,12 @@ export const MEETINGS_QUERY = gql`
     }
   }
 `;
+
+export const UNAVAILABLE_TIMES_QUERY = gql`
+  query unavailableTimes($user: String!) {
+    unavailableTimes(user: $user) {
+      date
+      hours
+    }
+  }
+`;
